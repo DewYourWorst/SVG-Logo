@@ -19,7 +19,8 @@ const questions = [
 
     {
         type: "input",
-        message: "What would you like your shapes color to be? (Enter color or hexadecimal number)"
+        message: "What would you like your shapes color to be? (Enter color or hexadecimal number)",
+        name:"shapeColor"
     },
 
     {
@@ -42,21 +43,21 @@ function createFile(fileName, input){
     let shapeChoice;
     if(input.shape === "Triangle") {
         shapeChoice = new Triangle();
-        svgString += `<polygon points="150, 18 244, 182 56, 182" fill="${input.shapeBackgroundColor}"/>`;
+        svgString += `<polygon points="150, 18 244, 182 56, 182" fill="${input.shapeColor}"/>`;
 
     } else if (input.shape === "Square"){
         shapeChoice = new Square();
-        svgString += `<rect x="73" y="40" width="160" height="160" fill="${input.shapeBackgroundColor}"/>`
+        svgString += `<rect x="73" y="40" width="160" height="160" fill="${input.shapeColor}"/>`
     } else {
         shapeChoice = new Circle();
-        svgString += `<circle cx="150" cy="115" r="80" fill="${input.shapeBackgroundColor}"/>`;
+        svgString += `<circle cx="150" cy="115" r="80" fill="${input.shapeColor}"/>`;
     };
 
     svgString += `<text x="150" y="130" text-anchor="middle" font-size="40" fill="${input.textColor}">${input.text}</text>`;
     svgString += "</g>";
     svgString += "</svg>";
 
-    fs.createFile(fileName, svgString, (err) => {
+    fs.writeFile(fileName, svgString, (err) => {
         err ? console.log(err) : console.log("File logo.svg has been generated");
     })
 }
